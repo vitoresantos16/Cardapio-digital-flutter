@@ -1,3 +1,3 @@
-# Cardapio-digital-flutter
-Cardápio digital feito em Flutter
-Mini projeto da aula de programação de aplicativos.
+## Cardápio Digital
+Cardápio feito completamente em Dart/Flutter
+
