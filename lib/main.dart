@@ -12,16 +12,80 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
+        colorScheme: ColorScheme.fromSeed(seedColor: const Color.fromARGB(255, 176, 28, 18)),
       ),
       initialRoute: '/',
       routes: {
-        '/': (context) => const Plates(title: 'Outbéqui Steiquirrause'),
-        '/drinks': (context) => const Drinks(title: 'Pratos'),
+        '/': (context) => const Home(title: 'Cardápio Outbéqui'),
+        '/plates': (context) => const Plates(title: 'Pratos'),
+        '/drinks': (context) => const Drinks(title: 'Bebidas'),
       }
     );
   }
 }
+
+class Home extends StatefulWidget {
+  const Home({super.key, required this.title});
+
+  final String title;
+  @override
+  State<Home> createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Color.fromARGB(255, 176, 28, 18),
+        title: Center(
+          child: Text(widget.title, style: TextStyle(color: Colors.white))
+        ),
+      ),
+      body: Padding( 
+        padding: EdgeInsets.only(top: 40, bottom: 30),
+      
+        child: Padding(padding: EdgeInsets.only(left: 30, right: 30),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Image.asset('assets/images/logo.png'),
+              SizedBox(height: 30,),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      fixedSize: const Size(150, 50),
+                      backgroundColor: Color.fromARGB(255, 176, 28, 18)
+                    ),
+                    onPressed: () {
+                      Navigator.pushNamed(context, '/plates');
+                    },
+                    child: Text('Pratos', style: TextStyle(fontSize: 20, color: Colors.white))
+                  ),
+                  SizedBox(width: 10,),
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      fixedSize: const Size(150, 50),
+                      backgroundColor: Color.fromARGB(255, 176, 28, 18)
+                    ),
+                    onPressed: () {
+                      Navigator.pushNamed(context, '/drinks');
+                    },
+                    child: Text('Bebidas', style: TextStyle(fontSize: 20, color: Colors.white))
+                  ),
+                ],
+              ),
+            ],
+          )
+        ,)
+      )
+    );
+  }
+}
+
 
 class Plates extends StatefulWidget {
   const Plates({super.key, required this.title});
@@ -33,182 +97,71 @@ class Plates extends StatefulWidget {
 
 class _PlatesState extends State<Plates> {
 
-  List produtos = [
+  List<String> produtos = [
     'Bloomin Onion',
-    'Super Wings',
-    'Big Five Boomerang',
-    'Ribs on the Barbie',
-    'Grilled Fish',
-    'Homestead Steak',
-    'Caesar Salad',
-    'El Ranchito'
+    'Kookaburra Wings',
+    'Ribs On The Barbie',
+    'Alice Springs Chicken',
+    'New York Strip Steak',
+    'Junior Ribs',
+    'Grilled Salmon',
+    'Caesar Salad'
   ];
 
-  List precos = [
-    '49.99',
-    '69.99',
-    '79.99',
-    '85.99',
-    '69.99',
-    '59.99',
-    '39.99',
-    '35.99'
+  List<String> precos = [
+    '66.90',
+    '79.90',
+    '89.90',
+    '74.90',
+    '119.90',
+    '78.90',
+    '89.90',
+    '35.00'
+  ];
+
+  List<String> imagens = [
+    'assets/images/bloomin_onion.jpg',
+    'assets/images/kookaburra_wings.jpg',
+    'assets/images/ribs_barbie.jpg',
+    'assets/images/alice_springs.jpg',
+    'assets/images/strip_steak.jpg',
+    'assets/images/junior_ribs.jpg',
+    'assets/images/grilled_salmon.jpg',
+    'assets/images/caesar_salad.jpg'
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        backgroundColor: Color.fromARGB(255, 176, 28, 18),
         title: Center(
-          child: Text(widget.title)
+          child: Text(widget.title, style: TextStyle(color: Colors.white))
         ),
       ),
       body: Padding( 
-        padding: EdgeInsets.only(top: 40, bottom: 30),
+        padding: EdgeInsets.only(top: 20, bottom: 20),
 
         child: Column(
           children: [
             Expanded(
               child: GridView.count(
                 crossAxisCount: 2,
-                
+                mainAxisSpacing: 20,
                 children: [
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    spacing: 15,
-                    children: [
-                      Container(width: 160, height: 160, color: Colors.lightBlueAccent,
-                      child: Icon(Icons.fastfood, size: 50,),
-                      ),
-                      Column(
-                        children: [
-                          Text(produtos[0], style: TextStyle(fontSize: 24)),
-                          Text('R\$ ${precos[0]}', style: TextStyle(fontSize: 20))
-                        ],
-                      )
-                    ]
-                  ),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    spacing: 15,
-                    children: [
-                      Container(width: 160, height: 160, color: Colors.lightBlueAccent,
-                      child: Icon(Icons.fastfood, size: 50,),
-                      ),
-                      Column(
-                        children: [
-                          Text(produtos[1], style: TextStyle(fontSize: 24)),
-                          Text('R\$ ${precos[1]}', style: TextStyle(fontSize: 20))
-                        ],
-                      )
-                    ]
-                  ),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    spacing: 15,
-                    children: [
-                      Container(width: 160, height: 160, color: Colors.lightBlueAccent,
-                      child: Icon(Icons.fastfood, size: 50,),
-                      ),
-                      Column(
-                        children: [
-                          Text(produtos[2], style: TextStyle(fontSize: 24)),
-                          Text('R\$ ${precos[2]}', style: TextStyle(fontSize: 20))
-                        ],
-                      )
-                    ]
-                  ),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    spacing: 15,
-                    children: [
-                      Container(width: 160, height: 160, color: Colors.lightBlueAccent,
-                      child: Icon(Icons.fastfood, size: 50,),
-                      ),
-                      Column(
-                        children: [
-                          Text(produtos[3], style: TextStyle(fontSize: 24)),
-                          Text('R\$ ${precos[3]}', style: TextStyle(fontSize: 20))
-                        ],
-                      )
-                    ]
-                  ),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    spacing: 15,
-                    children: [
-                      Container(width: 160, height: 160, color: Colors.lightBlueAccent,
-                      child: Icon(Icons.fastfood, size: 50,),
-                      ),
-                      Column(
-                        children: [
-                          Text(produtos[4], style: TextStyle(fontSize: 24)),
-                          Text('R\$ ${precos[4]}', style: TextStyle(fontSize: 20))
-                        ],
-                      )
-                    ]
-                  ),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    spacing: 15,
-                    children: [
-                      Container(width: 160, height: 160, color: Colors.lightBlueAccent,
-                      child: Icon(Icons.fastfood, size: 50,),
-                      ),
-                      Column(
-                        children: [
-                          Text(produtos[5], style: TextStyle(fontSize: 24)),
-                          Text('R\$ ${precos[5]}', style: TextStyle(fontSize: 20))
-                        ],
-                      )
-                    ]
-                  ),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    spacing: 15,
-                    children: [
-                      Container(width: 160, height: 160, color: Colors.lightBlueAccent,
-                      child: Icon(Icons.fastfood, size: 50,),
-                      ),
-                      Column(
-                        children: [
-                          Text(produtos[6], style: TextStyle(fontSize: 24)),
-                          Text('R\$ ${precos[6]}', style: TextStyle(fontSize: 20))
-                        ],
-                      )
-                    ]
-                  ),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    spacing: 15,
-                    children: [
-                      Container(width: 160, height: 160, color: Colors.lightBlueAccent,
-                      child: Icon(Icons.fastfood, size: 50,),
-                      ),
-                      Column(
-                        children: [
-                          Text(produtos[7], style: TextStyle(fontSize: 24)),
-                          Text('R\$ ${precos[7]}', style: TextStyle(fontSize: 20))
-                        ],
-                      )
-                    ]
-                  )
+                  ...List.generate(produtos.length, (index) {
+                    return Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Container(height: 180, width: 180, color: Colors.black12, child: Image.asset(imagens[index])),
+                        SizedBox(height: 10,),
+                        Text(produtos[index], style: TextStyle(fontSize: 18)),
+                        Text('R\$ ${precos[index]}', style: TextStyle(fontSize: 18)),
+                      ],
+                    );
+                  }),
                 ]
               ),
-            ),
-
-            SizedBox(height: 30,),
-
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                fixedSize: const Size(400, 50),
-                backgroundColor: Colors.blue
-              ),
-              onPressed: () {
-                Navigator.pushNamed(context, '/drinks');
-              },
-              child: Text('Bebidas', style: TextStyle(fontSize: 20, color: Colors.white))
             ),
           ],
         ),
@@ -227,185 +180,74 @@ class Drinks extends StatefulWidget {
 
 class _DrinksState extends State<Drinks> {
 
-  List produtos = [
-    'Bloomin Onion',
-    'Super Wings',
-    'Big Five Boomerang',
-    'Ribs on the Barbie',
-    'Grilled Fish',
-    'Homestead Steak',
-    'Caesar Salad',
-    'El Ranchito'
+  List<String> produtos = [
+    'Pink Lemonade',
+    'Iced Tea',
+    'Refrigerante (500ml)',
+    'Suco natural',
+    'Água com gás (400ml)',
+    'Água sem gás (400ml)',
+    'Heineken Long Neck',
+    "Jack Daniel's"
   ];
 
-  List precos = [
-    '49.99',
-    '69.99',
-    '79.99',
-    '85.99',
-    '69.99',
-    '59.99',
-    '39.99',
-    '35.99'
+  List<String> precos = [
+    '14.90',
+    '12.90',
+    '13.90',
+    '15.90',
+    '8.90',
+    '7.90',
+    '18.90',
+    '29.90'
+  ];
+
+  List<String> imagens = [
+    'assets/images/pink_lemonade.jpg',
+    'assets/images/iced_tea.jpg',
+    'assets/images/refrigerante.jpg',
+    'assets/images/suco.jpg',
+    'assets/images/agua_gas.jpg',
+    'assets/images/agua_sem_gas.jpg',
+    'assets/images/heineken.jpg',
+    'assets/images/jack_daniels.jpg',
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        backgroundColor: Color.fromARGB(255, 176, 28, 18),
         title: Center(
-          child: Text(widget.title)
+          child: Text(widget.title, style: TextStyle(color: Colors.white))
         ),
       ),
       body: Padding( 
-        padding: EdgeInsets.only(top: 40, bottom: 30),
+        padding: EdgeInsets.only(top: 40, bottom: 70),
 
         child: Column(
           children: [
             Expanded(
               child: GridView.count(
                 crossAxisCount: 2,
-                
+                mainAxisSpacing: 20,
                 children: [
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    spacing: 15,
-                    children: [
-                      Container(width: 160, height: 160, color: Colors.lightBlueAccent,
-                      child: Icon(Icons.fastfood, size: 50,),
-                      ),
-                      Column(
-                        children: [
-                          Text(produtos[0], style: TextStyle(fontSize: 24)),
-                          Text('R\$ ${precos[0]}', style: TextStyle(fontSize: 20))
-                        ],
-                      )
-                    ]
-                  ),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    spacing: 15,
-                    children: [
-                      Container(width: 160, height: 160, color: Colors.lightBlueAccent,
-                      child: Icon(Icons.fastfood, size: 50,),
-                      ),
-                      Column(
-                        children: [
-                          Text(produtos[1], style: TextStyle(fontSize: 24)),
-                          Text('R\$ ${precos[1]}', style: TextStyle(fontSize: 20))
-                        ],
-                      )
-                    ]
-                  ),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    spacing: 15,
-                    children: [
-                      Container(width: 160, height: 160, color: Colors.lightBlueAccent,
-                      child: Icon(Icons.fastfood, size: 50,),
-                      ),
-                      Column(
-                        children: [
-                          Text(produtos[2], style: TextStyle(fontSize: 24)),
-                          Text('R\$ ${precos[2]}', style: TextStyle(fontSize: 20))
-                        ],
-                      )
-                    ]
-                  ),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    spacing: 15,
-                    children: [
-                      Container(width: 160, height: 160, color: Colors.lightBlueAccent,
-                      child: Icon(Icons.fastfood, size: 50,),
-                      ),
-                      Column(
-                        children: [
-                          Text(produtos[3], style: TextStyle(fontSize: 24)),
-                          Text('R\$ ${precos[3]}', style: TextStyle(fontSize: 20))
-                        ],
-                      )
-                    ]
-                  ),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    spacing: 15,
-                    children: [
-                      Container(width: 160, height: 160, color: Colors.lightBlueAccent,
-                      child: Icon(Icons.fastfood, size: 50,),
-                      ),
-                      Column(
-                        children: [
-                          Text(produtos[4], style: TextStyle(fontSize: 24)),
-                          Text('R\$ ${precos[4]}', style: TextStyle(fontSize: 20))
-                        ],
-                      )
-                    ]
-                  ),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    spacing: 15,
-                    children: [
-                      Container(width: 160, height: 160, color: Colors.lightBlueAccent,
-                      child: Icon(Icons.fastfood, size: 50,),
-                      ),
-                      Column(
-                        children: [
-                          Text(produtos[5], style: TextStyle(fontSize: 24)),
-                          Text('R\$ ${precos[5]}', style: TextStyle(fontSize: 20))
-                        ],
-                      )
-                    ]
-                  ),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    spacing: 15,
-                    children: [
-                      Container(width: 160, height: 160, color: Colors.lightBlueAccent,
-                      child: Icon(Icons.fastfood, size: 50,),
-                      ),
-                      Column(
-                        children: [
-                          Text(produtos[6], style: TextStyle(fontSize: 24)),
-                          Text('R\$ ${precos[6]}', style: TextStyle(fontSize: 20))
-                        ],
-                      )
-                    ]
-                  ),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    spacing: 15,
-                    children: [
-                      Container(width: 160, height: 160, color: Colors.lightBlueAccent,
-                      child: Icon(Icons.fastfood, size: 50,),
-                      ),
-                      Column(
-                        children: [
-                          Text(produtos[7], style: TextStyle(fontSize: 24)),
-                          Text('R\$ ${precos[7]}', style: TextStyle(fontSize: 20))
-                        ],
-                      )
-                    ]
-                  )
-                ]
+                  ...List.generate(produtos.length, (index) {
+                    return Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Container(height: 180, width: 180, color: Colors.black12, child: Image.asset(imagens[index])),
+                        SizedBox(height: 10,),
+                        Text(produtos[index], style: TextStyle(fontSize: 18)),
+                        Text('R\$ ${precos[index]}', style: TextStyle(fontSize: 18)),
+                      ],
+                    );
+                  }),
+                ],
               ),
-            ),
-
-            SizedBox(height: 30,),
-
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                fixedSize: const Size(400, 50),
-                backgroundColor: Colors.blue
-              ),
-              onPressed: () {
-                Navigator.pushNamed(context, '/');
-              },
-              child: Text('Pratos', style: TextStyle(fontSize: 20, color: Colors.white))
-            ),
-          ],
-        ),
+            )
+          ]
+        )
       )
     );
   }
